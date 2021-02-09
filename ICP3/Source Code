@@ -1,1 +1,589 @@
-
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "icp3.ipynb",
+      "provenance": [],
+      "collapsed_sections": [],
+      "toc_visible": true,
+      "mount_file_id": "1-9tJvLfLFDbBFd6Urw2jS88Fb6-USl67",
+      "authorship_tag": "ABX9TyNdlAqyroWdF8yXssnDnvqZ",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/yanamalaanusha/anusha-icp1-spring-2021/blob/main/icp3.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "hNUPg_1Bx8AX"
+      },
+      "source": [
+        "WordNet Task:(use the nltk wordnet library)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "GVPDIjriyDTN",
+        "outputId": "14653084-fbb5-4b66-c882-c39bd49e21f7"
+      },
+      "source": [
+        "import nltk\r\n",
+        "nltk.download('all')\r\n",
+        "from nltk.corpus import wordnet"
+      ],
+      "execution_count": 10,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "[nltk_data] Downloading collection 'all'\n",
+            "[nltk_data]    | \n",
+            "[nltk_data]    | Downloading package abc to /root/nltk_data...\n",
+            "[nltk_data]    |   Package abc is already up-to-date!\n",
+            "[nltk_data]    | Downloading package alpino to /root/nltk_data...\n",
+            "[nltk_data]    |   Package alpino is already up-to-date!\n",
+            "[nltk_data]    | Downloading package biocreative_ppi to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package biocreative_ppi is already up-to-date!\n",
+            "[nltk_data]    | Downloading package brown to /root/nltk_data...\n",
+            "[nltk_data]    |   Package brown is already up-to-date!\n",
+            "[nltk_data]    | Downloading package brown_tei to /root/nltk_data...\n",
+            "[nltk_data]    |   Package brown_tei is already up-to-date!\n",
+            "[nltk_data]    | Downloading package cess_cat to /root/nltk_data...\n",
+            "[nltk_data]    |   Package cess_cat is already up-to-date!\n",
+            "[nltk_data]    | Downloading package cess_esp to /root/nltk_data...\n",
+            "[nltk_data]    |   Package cess_esp is already up-to-date!\n",
+            "[nltk_data]    | Downloading package chat80 to /root/nltk_data...\n",
+            "[nltk_data]    |   Package chat80 is already up-to-date!\n",
+            "[nltk_data]    | Downloading package city_database to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package city_database is already up-to-date!\n",
+            "[nltk_data]    | Downloading package cmudict to /root/nltk_data...\n",
+            "[nltk_data]    |   Package cmudict is already up-to-date!\n",
+            "[nltk_data]    | Downloading package comparative_sentences to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package comparative_sentences is already up-to-\n",
+            "[nltk_data]    |       date!\n",
+            "[nltk_data]    | Downloading package comtrans to /root/nltk_data...\n",
+            "[nltk_data]    |   Package comtrans is already up-to-date!\n",
+            "[nltk_data]    | Downloading package conll2000 to /root/nltk_data...\n",
+            "[nltk_data]    |   Package conll2000 is already up-to-date!\n",
+            "[nltk_data]    | Downloading package conll2002 to /root/nltk_data...\n",
+            "[nltk_data]    |   Package conll2002 is already up-to-date!\n",
+            "[nltk_data]    | Downloading package conll2007 to /root/nltk_data...\n",
+            "[nltk_data]    |   Package conll2007 is already up-to-date!\n",
+            "[nltk_data]    | Downloading package crubadan to /root/nltk_data...\n",
+            "[nltk_data]    |   Package crubadan is already up-to-date!\n",
+            "[nltk_data]    | Downloading package dependency_treebank to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package dependency_treebank is already up-to-date!\n",
+            "[nltk_data]    | Downloading package dolch to /root/nltk_data...\n",
+            "[nltk_data]    |   Package dolch is already up-to-date!\n",
+            "[nltk_data]    | Downloading package europarl_raw to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package europarl_raw is already up-to-date!\n",
+            "[nltk_data]    | Downloading package floresta to /root/nltk_data...\n",
+            "[nltk_data]    |   Package floresta is already up-to-date!\n",
+            "[nltk_data]    | Downloading package framenet_v15 to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package framenet_v15 is already up-to-date!\n",
+            "[nltk_data]    | Downloading package framenet_v17 to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package framenet_v17 is already up-to-date!\n",
+            "[nltk_data]    | Downloading package gazetteers to /root/nltk_data...\n",
+            "[nltk_data]    |   Package gazetteers is already up-to-date!\n",
+            "[nltk_data]    | Downloading package genesis to /root/nltk_data...\n",
+            "[nltk_data]    |   Package genesis is already up-to-date!\n",
+            "[nltk_data]    | Downloading package gutenberg to /root/nltk_data...\n",
+            "[nltk_data]    |   Package gutenberg is already up-to-date!\n",
+            "[nltk_data]    | Downloading package ieer to /root/nltk_data...\n",
+            "[nltk_data]    |   Package ieer is already up-to-date!\n",
+            "[nltk_data]    | Downloading package inaugural to /root/nltk_data...\n",
+            "[nltk_data]    |   Package inaugural is already up-to-date!\n",
+            "[nltk_data]    | Downloading package indian to /root/nltk_data...\n",
+            "[nltk_data]    |   Package indian is already up-to-date!\n",
+            "[nltk_data]    | Downloading package jeita to /root/nltk_data...\n",
+            "[nltk_data]    |   Package jeita is already up-to-date!\n",
+            "[nltk_data]    | Downloading package kimmo to /root/nltk_data...\n",
+            "[nltk_data]    |   Package kimmo is already up-to-date!\n",
+            "[nltk_data]    | Downloading package knbc to /root/nltk_data...\n",
+            "[nltk_data]    |   Package knbc is already up-to-date!\n",
+            "[nltk_data]    | Downloading package lin_thesaurus to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package semcor is already up-to-date!\n",
+            "[nltk_data]    | Downloading package senseval to /root/nltk_data...\n",
+            "[nltk_data]    |   Package senseval is already up-to-date!\n",
+            "[nltk_data]    | Downloading package sentiwordnet to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package sentiwordnet is already up-to-date!\n",
+            "[nltk_data]    | Downloading package sentence_polarity to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package sentence_polarity is already up-to-date!\n",
+            "[nltk_data]    | Downloading package shakespeare to /root/nltk_data...\n",
+            "[nltk_data]    |   Package shakespeare is already up-to-date!\n",
+            "[nltk_data]    | Downloading package sinica_treebank to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package sinica_treebank is already up-to-date!\n",
+            "[nltk_data]    | Downloading package smultron to /root/nltk_data...\n",
+            "[nltk_data]    |   Package smultron is already up-to-date!\n",
+            "[nltk_data]    | Downloading package state_union to /root/nltk_data...\n",
+            "[nltk_data]    |   Package state_union is already up-to-date!\n",
+            "[nltk_data]    | Downloading package stopwords to /root/nltk_data...\n",
+            "[nltk_data]    |   Package stopwords is already up-to-date!\n",
+            "[nltk_data]    | Downloading package subjectivity to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package subjectivity is already up-to-date!\n",
+            "[nltk_data]    | Downloading package swadesh to /root/nltk_data...\n",
+            "[nltk_data]    |   Package swadesh is already up-to-date!\n",
+            "[nltk_data]    | Downloading package switchboard to /root/nltk_data...\n",
+            "[nltk_data]    |   Package switchboard is already up-to-date!\n",
+            "[nltk_data]    | Downloading package timit to /root/nltk_data...\n",
+            "[nltk_data]    |   Package timit is already up-to-date!\n",
+            "[nltk_data]    | Downloading package toolbox to /root/nltk_data...\n",
+            "[nltk_data]    |   Package toolbox is already up-to-date!\n",
+            "[nltk_data]    | Downloading package treebank to /root/nltk_data...\n",
+            "[nltk_data]    |   Package treebank is already up-to-date!\n",
+            "[nltk_data]    | Downloading package twitter_samples to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package twitter_samples is already up-to-date!\n",
+            "[nltk_data]    | Downloading package udhr to /root/nltk_data...\n",
+            "[nltk_data]    |   Package udhr is already up-to-date!\n",
+            "[nltk_data]    | Downloading package udhr2 to /root/nltk_data...\n",
+            "[nltk_data]    |   Package udhr2 is already up-to-date!\n",
+            "[nltk_data]    | Downloading package unicode_samples to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package unicode_samples is already up-to-date!\n",
+            "[nltk_data]    | Downloading package universal_treebanks_v20 to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package universal_treebanks_v20 is already up-to-\n",
+            "[nltk_data]    |       date!\n",
+            "[nltk_data]    | Downloading package verbnet to /root/nltk_data...\n",
+            "[nltk_data]    |   Package verbnet is already up-to-date!\n",
+            "[nltk_data]    | Downloading package verbnet3 to /root/nltk_data...\n",
+            "[nltk_data]    |   Package verbnet3 is already up-to-date!\n",
+            "[nltk_data]    | Downloading package webtext to /root/nltk_data...\n",
+            "[nltk_data]    |   Package webtext is already up-to-date!\n",
+            "[nltk_data]    | Downloading package wordnet to /root/nltk_data...\n",
+            "[nltk_data]    |   Package wordnet is already up-to-date!\n",
+            "[nltk_data]    | Downloading package wordnet_ic to /root/nltk_data...\n",
+            "[nltk_data]    |   Package wordnet_ic is already up-to-date!\n",
+            "[nltk_data]    | Downloading package words to /root/nltk_data...\n",
+            "[nltk_data]    |   Package words is already up-to-date!\n",
+            "[nltk_data]    | Downloading package ycoe to /root/nltk_data...\n",
+            "[nltk_data]    |   Package ycoe is already up-to-date!\n",
+            "[nltk_data]    | Downloading package rslp to /root/nltk_data...\n",
+            "[nltk_data]    |   Package rslp is already up-to-date!\n",
+            "[nltk_data]    | Downloading package maxent_treebank_pos_tagger to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package maxent_treebank_pos_tagger is already up-\n",
+            "[nltk_data]    |       to-date!\n",
+            "[nltk_data]    | Downloading package universal_tagset to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package universal_tagset is already up-to-date!\n",
+            "[nltk_data]    | Downloading package maxent_ne_chunker to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package maxent_ne_chunker is already up-to-date!\n",
+            "[nltk_data]    | Downloading package punkt to /root/nltk_data...\n",
+            "[nltk_data]    |   Package punkt is already up-to-date!\n",
+            "[nltk_data]    | Downloading package book_grammars to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package book_grammars is already up-to-date!\n",
+            "[nltk_data]    | Downloading package sample_grammars to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package sample_grammars is already up-to-date!\n",
+            "[nltk_data]    | Downloading package spanish_grammars to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package spanish_grammars is already up-to-date!\n",
+            "[nltk_data]    | Downloading package basque_grammars to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package basque_grammars is already up-to-date!\n",
+            "[nltk_data]    | Downloading package large_grammars to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package large_grammars is already up-to-date!\n",
+            "[nltk_data]    | Downloading package tagsets to /root/nltk_data...\n",
+            "[nltk_data]    |   Package tagsets is already up-to-date!\n",
+            "[nltk_data]    | Downloading package snowball_data to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package snowball_data is already up-to-date!\n",
+            "[nltk_data]    | Downloading package bllip_wsj_no_aux to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package bllip_wsj_no_aux is already up-to-date!\n",
+            "[nltk_data]    | Downloading package word2vec_sample to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package word2vec_sample is already up-to-date!\n",
+            "[nltk_data]    | Downloading package panlex_swadesh to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package panlex_swadesh is already up-to-date!\n",
+            "[nltk_data]    | Downloading package mte_teip5 to /root/nltk_data...\n",
+            "[nltk_data]    |   Package mte_teip5 is already up-to-date!\n",
+            "[nltk_data]    | Downloading package averaged_perceptron_tagger to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package averaged_perceptron_tagger is already up-\n",
+            "[nltk_data]    |       to-date!\n",
+            "[nltk_data]    | Downloading package averaged_perceptron_tagger_ru to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package averaged_perceptron_tagger_ru is already\n",
+            "[nltk_data]    |       up-to-date!\n",
+            "[nltk_data]    | Downloading package perluniprops to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package perluniprops is already up-to-date!\n",
+            "[nltk_data]    | Downloading package nonbreaking_prefixes to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package nonbreaking_prefixes is already up-to-date!\n",
+            "[nltk_data]    | Downloading package vader_lexicon to\n",
+            "[nltk_data]    |     /root/nltk_data...\n",
+            "[nltk_data]    |   Package vader_lexicon is already up-to-date!\n",
+            "[nltk_data]    | Downloading package porter_test to /root/nltk_data...\n",
+            "[nltk_data]    |   Package porter_test is already up-to-date!\n",
+            "[nltk_data]    | Downloading package wmt15_eval to /root/nltk_data...\n",
+            "[nltk_data]    |   Package wmt15_eval is already up-to-date!\n",
+            "[nltk_data]    | Downloading package mwa_ppdb to /root/nltk_data...\n",
+            "[nltk_data]    |   Package mwa_ppdb is already up-to-date!\n",
+            "[nltk_data]    | \n",
+            "[nltk_data]  Done downloading collection all\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "vL_8nA4gKPhF"
+      },
+      "source": [
+        "IE: Triplet Extraction(Perform triplet extraction on input sentences)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 378
+        },
+        "id": "tnygtGixKH7A",
+        "outputId": "42fb766a-c352-4424-f9f3-bca7b207213d"
+      },
+      "source": [
+        "import spacy\r\n",
+        "\r\n",
+        "import textacy\r\n",
+        "\r\n",
+        "nlp = spacy.load('en')\r\n",
+        "text = nlp(u'Startup companies create jobs and support innovation. Hilary supports entrepreneurship.')\r\n",
+        "\r\n",
+        "text_ext = textacy.extract.subject_verb_object_triples(text)\r\n",
+        "list(text_ext)"
+      ],
+      "execution_count": 21,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "ModuleNotFoundError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-21-65e1a7a064d6>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mspacy\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      2\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 3\u001b[0;31m \u001b[0;32mimport\u001b[0m \u001b[0mtextacy\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      4\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m \u001b[0mnlp\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mspacy\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mload\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'en'\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mModuleNotFoundError\u001b[0m: No module named 'textacy'",
+            "",
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0;32m\nNOTE: If your import is failing due to a missing package, you can\nmanually install dependencies using either !pip or !apt.\n\nTo view examples of installing some common dependencies, click the\n\"Open Examples\" button below.\n\u001b[0;31m---------------------------------------------------------------------------\u001b[0m\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "BYZH_NC-gwfJ"
+      },
+      "source": [
+        "# lets use word paint as an example"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "ZH7z7W26g2vK"
+      },
+      "source": [
+        "syns = wordnet.synsets(\"good\")"
+      ],
+      "execution_count": 22,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "qZvyAgukhWKy"
+      },
+      "source": [
+        "# An example of a synset:"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "j-HLDwjNhZH3",
+        "outputId": "08b74ed8-842a-4946-fcbd-cb70f5e68c3b"
+      },
+      "source": [
+        "print(syns[0].name())\r\n",
+        "print('\\n')"
+      ],
+      "execution_count": 23,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "good.n.01\n",
+            "\n",
+            "\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "HFu23_EuiZB2"
+      },
+      "source": [
+        "# Just the word:"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "xqrn-sQRicge",
+        "outputId": "a8fa479a-fd86-45b1-b680-82579406c086"
+      },
+      "source": [
+        "print(syns[0].lemmas()[0].name())\r\n",
+        "print('\\n')"
+      ],
+      "execution_count": 24,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "good\n",
+            "\n",
+            "\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "0OGjwwC8igoi"
+      },
+      "source": [
+        "\r\n",
+        "# Definition of that first synset:"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "TTfZhq8hihRS",
+        "outputId": "fc474095-5e23-4eec-8324-4a41ef41f3fd"
+      },
+      "source": [
+        "print(syns[0].definition())\r\n",
+        "print('\\n')"
+      ],
+      "execution_count": 25,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "benefit\n",
+            "\n",
+            "\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "ejdsia0QipjY"
+      },
+      "source": [
+        "# Examples of the word in use in sentences:"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "xYDcgrEaisEA",
+        "outputId": "6d43ac9a-6ff3-4e9b-b521-28a79c3446a7"
+      },
+      "source": [
+        "print(syns[0].examples())\r\n",
+        "print('\\n')"
+      ],
+      "execution_count": 26,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "['for your own good', \"what's the good of worrying?\"]\n",
+            "\n",
+            "\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "ggrE9TNmi5Nv"
+      },
+      "source": [
+        "# synonyms and antonyms using wordnet using word"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "JGUyPDhNi70S",
+        "outputId": "d78a47d6-ae2e-4121-a0ee-09143653e4cc"
+      },
+      "source": [
+        "synonyms = []\r\n",
+        "antonyms = []\r\n",
+        "\r\n",
+        "for syn in wordnet.synsets(\"good\"):\r\n",
+        "    for l in syn.lemmas():\r\n",
+        "        synonyms.append(l.name())\r\n",
+        "        if l.antonyms():\r\n",
+        "            antonyms.append(l.antonyms()[0].name())\r\n",
+        "print('The synonyms of good are: ')\r\n",
+        "print(set(synonyms))\r\n",
+        "print('\\n')\r\n",
+        "print('The antonyms of good are: ')\r\n",
+        "print(set(antonyms))\r\n",
+        "print('\\n')"
+      ],
+      "execution_count": 27,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "The synonyms of good are: \n",
+            "{'soundly', 'commodity', 'upright', 'respectable', 'good', 'adept', 'skillful', 'undecomposed', 'safe', 'skilful', 'full', 'estimable', 'thoroughly', 'in_effect', 'unspoilt', 'secure', 'practiced', 'in_force', 'honorable', 'trade_good', 'salutary', 'goodness', 'just', 'proficient', 'right', 'dear', 'well', 'serious', 'dependable', 'sound', 'unspoiled', 'near', 'expert', 'beneficial', 'honest', 'effective', 'ripe'}\n",
+            "\n",
+            "\n",
+            "The antonyms of good are: \n",
+            "{'ill', 'bad', 'evilness', 'badness', 'evil'}\n",
+            "\n",
+            "\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "81da5QbsjDSx"
+      },
+      "source": [
+        "# comparison/ similarity score between 2 words"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "UgnSWmNujG81",
+        "outputId": "4c4d3494-ac3e-4230-e0c3-9e519ddf703f"
+      },
+      "source": [
+        "w1 = wordnet.synset('ship.n.01')\r\n",
+        "w2 = wordnet.synset('boat.n.01') # n denotes noun\r\n",
+        "print(\"The similarity score betwee ship and boat is =\",w1.wup_similarity(w2))\r\n",
+        "\r\n",
+        "\r\n",
+        "print('Set of hyponyms:\\n', syns[0].hyponyms(), '\\n' )\r\n",
+        "print('Set of hypernyms:\\n', syns[0].hypernyms(), '\\n' )\r\n",
+        "print('Set of part-meronyms:\\n', wordnet.synset('table.n.2').part_meronyms(), '\\n' )\r\n",
+        "print('Set of member-holonyms:\\n', wordnet.synset('kitchen.n.01').part_holonyms() , '\\n' )\r\n",
+        "print('Set of part-holonyms:\\n', wordnet.synset('course.n.7').part_holonyms(), '\\n' )\r\n",
+        "print('Entailment of word Breathe:\\n', wordnet.synset('snore.v.01').entailments(), '\\n' )"
+      ],
+      "execution_count": 28,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "The similarity score betwee ship and boat is = 0.9090909090909091\n",
+            "Set of hyponyms:\n",
+            " [Synset('common_good.n.01')] \n",
+            "\n",
+            "Set of hypernyms:\n",
+            " [Synset('advantage.n.01')] \n",
+            "\n",
+            "Set of part-meronyms:\n",
+            " [Synset('leg.n.03'), Synset('tabletop.n.01'), Synset('tableware.n.01')] \n",
+            "\n",
+            "Set of member-holonyms:\n",
+            " [Synset('dwelling.n.01')] \n",
+            "\n",
+            "Set of part-holonyms:\n",
+            " [Synset('meal.n.01')] \n",
+            "\n",
+            "Entailment of word Breathe:\n",
+            " [Synset('sleep.v.01')] \n",
+            "\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    }
+  ]
+}
